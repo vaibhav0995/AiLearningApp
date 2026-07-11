@@ -5,6 +5,7 @@ import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.List;
 
 @Service
 public class AiService {
+
+    private static final double TEMPERATURE = 0.7;
 
     private final ChatClient chatClient;
     private final List<Message> conversationHistory = new ArrayList<>();
@@ -35,7 +38,11 @@ public class AiService {
         }
         messages.addAll(conversationHistory);
 
-        String reply = chatClient.prompt(new Prompt(messages))
+        ChatOptions chatOptions = ChatOptions.builder()
+                .temperature(TEMPERATURE)
+                .build();
+
+        String reply = chatClient.prompt(new Prompt(messages, chatOptions))
                 .call()
                 .content();
 

@@ -35,7 +35,8 @@ public class ClaudeService {
 
         MessageCreateParams.Builder builder = MessageCreateParams.builder()
                 .model(claudeModel)
-                .maxTokens(1000L);
+                .maxTokens(1000L)
+                .temperature(1.0);
 
         if (systemPrompt != null && !systemPrompt.isBlank()) {
             builder.system(systemPrompt);
