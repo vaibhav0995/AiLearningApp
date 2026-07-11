@@ -35,8 +35,8 @@
 
  :: Spring Boot ::                (v3.5.4)
 
-2026-07-07T14:45:42.159+05:30  INFO 23756 --- [demo] [           main] com.example.demo.DemoApplication         : Starting DemoApplication using Java 17.0.12 with PID 23756 (C:\Users\vaibhav_gautam\intelliJProjects\demo\target\classes started by VaibhavGautam in C:\Users\vaibhav_gautam\intelliJProjects\demo)
-2026-07-07T14:45:42.161+05:30  INFO 23756 --- [demo] [           main] com.example.demo.DemoApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-07T14:45:42.159+05:30  INFO 23756 --- [demo] [           main] com.example.demo.AiLearningApp         : Starting DemoApplication using Java 17.0.12 with PID 23756 (C:\Users\vaibhav_gautam\intelliJProjects\demo\target\classes started by VaibhavGautam in C:\Users\vaibhav_gautam\intelliJProjects\demo)
+2026-07-07T14:45:42.161+05:30  INFO 23756 --- [demo] [           main] com.example.demo.AiLearningApp         : No active profile set, falling back to 1 default profile: "default"
 2026-07-07T14:45:42.727+05:30  INFO 23756 --- [demo] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2026-07-07T14:45:42.810+05:30  INFO 23756 --- [demo] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76 ms. Found 1 JPA repository interface.
 2026-07-07T14:45:43.174+05:30  INFO 23756 --- [demo] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
@@ -92,7 +92,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.4.jar:3.5.4]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.4.jar:3.5.4]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.4.jar:3.5.4]
-	at com.example.demo.DemoApplication.main(DemoApplication.java:10) ~[classes/:na]
+	at com.example.demo.AiLearningApp.main(DemoApplication.java:10) ~[classes/:na]
 Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'ANTHROPIC_API_KEY' in value "${ANTHROPIC_API_KEY}" <-- "${claude.configuration.api-key}"
 	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81) ~[spring-core-6.2.9.jar:6.2.9]
 	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:423) ~[spring-core-6.2.9.jar:6.2.9]
