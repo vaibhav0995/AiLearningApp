@@ -1,0 +1,7 @@
+com\example\demo\controllers\ClaudeController$SystemPromptRequest.class
+com\example\demo\services\AiService.class
+com\example\demo\controllers\AiController$ChatRequest.class
+com\example\demo\controllers\AiController$SystemPromptRequest.class
+com\example\demo\services\ClaudeService$ConversationMessage.class
+com\example\demo\controllers\AiController.class
+com\example\demo\controllers\AiController$ChatResponse.class
