@@ -13,6 +13,12 @@ import java.util.List;
 @Service
 public class ClaudeService {
 
+    private static final String SENTIMENT_SYSTEM_PROMPT = """
+            You are a sentiment classification engine for tweets. Classify the sentiment \
+            of the tweet the user gives you as exactly one word: POSITIVE or NEGATIVE. \
+            Respond with only that single word in uppercase and nothing else - no \
+            punctuation, no explanation.""";
+
     private final AnthropicClient anthropicClient;
     private final String claudeModel;
 
@@ -68,5 +74,22 @@ public class ClaudeService {
     public void resetChat() {
         conversationHistory.clear();
         systemPrompt = null;
+    }
+
+    public String analyzeSentiment(String tweet) {
+        MessageCreateParams params = MessageCreateParams.builder()
+                .model(claudeModel)
+                .maxTokens(1000L)
+                .system(SENTIMENT_SYSTEM_PROMPT)
+                .addUserMessage(tweet)
+                .build();
+
+        Message response = anthropicClient.messages().create(params);
+
+        return response.content().stream()
+                .flatMap(block -> block.text().stream())
+                .map(textBlock -> textBlock.text().trim())
+                .findFirst()
+                .orElse("");
     }
 }

@@ -35,7 +35,15 @@ public class AiController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/sentiment")
+    public ResponseEntity<SentimentResponse> sentiment(@RequestBody TweetRequest request) {
+        String sentiment = aiService.analyzeSentiment(request.tweet());
+        return ResponseEntity.ok(new SentimentResponse(sentiment));
+    }
+
     public record ChatRequest(String message) {}
     public record ChatResponse(String reply) {}
     public record SystemPromptRequest(String systemPrompt) {}
+    public record TweetRequest(String tweet) {}
+    public record SentimentResponse(String sentiment) {}
 }
