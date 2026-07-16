@@ -17,6 +17,12 @@ public class AiService {
 
     private static final double TEMPERATURE = 0.7;
 
+    private static final String SENTIMENT_SYSTEM_PROMPT = """
+            You are a sentiment classification engine for tweets. Classify the sentiment \
+            of the tweet the user gives you as exactly one word: POSITIVE or NEGATIVE. \
+            Respond with only that single word in uppercase and nothing else - no \
+            punctuation, no explanation.""";
+
     private final ChatClient chatClient;
     private final List<Message> conversationHistory = new ArrayList<>();
     private String systemPrompt;
@@ -53,5 +59,22 @@ public class AiService {
     public void resetChat() {
         conversationHistory.clear();
         systemPrompt = null;
+    }
+
+    public String analyzeSentiment(String tweet) {
+        List<Message> messages = List.of(
+                new SystemMessage(SENTIMENT_SYSTEM_PROMPT),
+                new UserMessage(tweet)
+        );
+
+        ChatOptions chatOptions = ChatOptions.builder()
+                .temperature(TEMPERATURE)
+                .build();
+
+        String reply = chatClient.prompt(new Prompt(messages, chatOptions))
+                .call()
+                .content();
+
+        return reply == null ? "" : reply.trim();
     }
 }
