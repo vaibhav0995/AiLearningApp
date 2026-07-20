@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.tools.DateTimeTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
@@ -7,6 +8,7 @@ import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.model.tool.ToolCallingChatOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,11 +26,13 @@ public class AiService {
             punctuation, no explanation.""";
 
     private final ChatClient chatClient;
+    private final DateTimeTools dateTimeTools;
     private final List<Message> conversationHistory = new ArrayList<>();
     private String systemPrompt;
 
-    public AiService(ChatClient.Builder chatClientBuilder) {
+    public AiService(ChatClient.Builder chatClientBuilder, DateTimeTools dateTimeTools) {
         this.chatClient = chatClientBuilder.build();
+        this.dateTimeTools = dateTimeTools;
     }
 
     public void setSystemPrompt(String systemPrompt) {
@@ -44,11 +48,12 @@ public class AiService {
         }
         messages.addAll(conversationHistory);
 
-        ChatOptions chatOptions = ChatOptions.builder()
+        ToolCallingChatOptions chatOptions = ToolCallingChatOptions.builder()
                 .temperature(TEMPERATURE)
                 .build();
 
         String reply = chatClient.prompt(new Prompt(messages, chatOptions))
+                .tools(dateTimeTools)
                 .call()
                 .content();
 
